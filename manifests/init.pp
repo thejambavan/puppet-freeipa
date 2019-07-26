@@ -55,6 +55,7 @@
 # @param realm The name of the IPA realm to create or join.
 # @param server_install_ldaputils If true, then the ldaputils packages are installed if ipa_role is not set to client.
 # @param sssd_package_name Name of the sssd package.
+# @param skip_overlap_check Don't check for DNS overlap
 # @param sssdtools_package_name Name of the sssdtools package.
 # @param humanadmins Hash of admin accounts in freeipa. Uses the following schema : Hash[ String[1], Struct[{ password => String[1], Optional[ensure] => Enum['present','absent']}]]
 # @param install_ca If true, then the parameter '--setup-ca' is passed to the IPA server installer (for replicas)
@@ -83,6 +84,7 @@ class freeipa (
   Boolean                              $install_autofs                 = false,
   Boolean                              $install_epel                   = true,
   Boolean                              $install_sssdtools              = true,
+  Boolean                              $skip_overlap_check             = false,
   String                               $ipa_client_package_name        = $facts['os']['family'] ? {
     'Debian' => 'freeipa-client',
     default  => 'ipa-client',
